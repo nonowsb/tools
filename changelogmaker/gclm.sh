@@ -22,11 +22,20 @@ do
         if [ $tagprev ] ; then
             #echo "["$tagprev"] to ["$tag"]"
             if [ $i -gt 1 ] ; then
-            echo "
+                echo "
 "
             fi
             echo "["$tagprev"] / $(git log -1 --date='short' --pretty='format:%ad' "$tagprev")"
             echo "$(git log --no-merges --pretty="- %s" $tagprev...$tag)"
+        fi
+        if [ $i == $max_index ] ; then
+            if [ $i -gt 1 ] ; then
+                echo "
+"
+            fi
+            echo "["$tag"] / $(git log -1 --date='short' --pretty='format:%ad' "$tag")"
+            echo "$(git log --no-merges --pretty="- %s" $tag)"
+            
         fi
         tagprev=$tag
     fi
